@@ -12,6 +12,12 @@
         <span class="slide-counter">{{ currentIndex + 1 }} / {{ lines.length }}</span>
       </div>
       <div class="top-right flex gap-3">
+        <!-- Fullscreen Button -->
+        <button @click="toggleFullscreen" class="icon-btn" :title="isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'">
+          <svg v-if="!isFullscreen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" /></svg>
+          <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+
         <!-- Help Button -->
         <button @click="showShortcuts = true" class="icon-btn" title="Keyboard Shortcuts (?)">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
@@ -147,6 +153,7 @@
           <div class="flex justify-between"><span class="text-base-content/70">First slide</span><span class="font-mono bg-base-300 px-2 py-1 rounded">Home</span></div>
           <div class="flex justify-between"><span class="text-base-content/70">Last slide</span><span class="font-mono bg-base-300 px-2 py-1 rounded">End</span></div>
           <div class="flex justify-between"><span class="text-base-content/70">Toggle Auto-fit</span><span class="font-mono bg-base-300 px-2 py-1 rounded">A</span></div>
+          <div class="flex justify-between"><span class="text-base-content/70">Toggle Fullscreen</span><span class="font-mono bg-base-300 px-2 py-1 rounded">F</span></div>
           <div class="flex justify-between"><span class="text-base-content/70">Font Size +/-</span><span class="font-mono bg-base-300 px-2 py-1 rounded">+ / -</span></div>
           <div class="flex justify-between"><span class="text-base-content/70">Back / Exit</span><span class="font-mono bg-base-300 px-2 py-1 rounded">Esc</span></div>
         </div>
@@ -170,6 +177,23 @@ const isFading = ref(false)
 const slideAreaRef = ref(null)
 const slideContentRef = ref(null)
 const showShortcuts = ref(false)
+const isFullscreen = ref(false)
+
+const toggleFullscreen = () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch((err) => {
+      console.error(`Error attempting to enable fullscreen: ${err.message}`);
+    });
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }
+}
+
+const handleFullscreenChange = () => {
+  isFullscreen.value = !!document.fullscreenElement;
+}
 
 const selectedLanguage = localStorage.getItem('selectedLanguage') || 'en'
 const isRtl = selectedLanguage === 'ur'
@@ -311,6 +335,8 @@ const handleKeydown = (e) => {
   } else if (e.key === '-' || e.key === '_') {
     changeSize('arabic', -0.2);
     changeSize('trans', -0.2);
+  } else if (e.key === 'f' || e.key === 'F') {
+    toggleFullscreen();
   }
 }
 
@@ -396,6 +422,7 @@ onMounted(async () => {
   document.body.style.overflow = 'hidden'
   window.addEventListener('keydown', handleKeydown)
   window.addEventListener('resize', handleResize)
+  document.addEventListener('fullscreenchange', handleFullscreenChange)
 
   const id = route.params.id;
   try {
@@ -419,6 +446,10 @@ onUnmounted(() => {
   document.body.style.overflow = ''
   window.removeEventListener('keydown', handleKeydown)
   window.removeEventListener('resize', handleResize)
+  document.removeEventListener('fullscreenchange', handleFullscreenChange)
+  if (document.fullscreenElement) {
+    document.exitFullscreen().catch(err => console.log(err));
+  }
 })
 </script>
 
