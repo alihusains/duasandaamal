@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar bg-base-100 shadow-sm mb-4 px-4 sticky top-0 z-50">
+  <div class="navbar bg-primary text-primary-content shadow-md mb-4 px-4 sticky top-0 z-50">
     <div class="flex-none">
       <button v-if="!isHome" @click="goBack" class="btn btn-square btn-ghost">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
@@ -17,11 +17,11 @@
           @input="handleSearch"
           type="text"
           placeholder="Search..."
-          class="input input-bordered input-sm w-32 sm:w-64"
+          class="input input-bordered input-sm w-32 sm:w-64 bg-base-100 text-base-content"
         />
 
         <!-- Search Results Dropdown -->
-        <ul v-if="searchResults.length > 0" class="absolute top-10 right-0 menu bg-base-100 w-72 shadow-xl rounded-box z-[100] max-h-96 flex-nowrap overflow-y-auto border border-base-200">
+        <ul v-if="searchResults.length > 0" class="absolute top-10 right-0 menu bg-base-100 text-base-content w-72 shadow-xl rounded-box z-[100] max-h-96 flex-nowrap overflow-y-auto border border-base-200">
           <li v-for="(result, index) in searchResults" :key="index">
             <a @click="goToResult(result.SubindexId)">
               <div class="flex flex-col gap-1 w-full overflow-hidden">
@@ -30,7 +30,7 @@
             </a>
           </li>
         </ul>
-        <ul v-else-if="searchQuery && hasSearched" class="absolute top-10 right-0 menu bg-base-100 w-72 shadow-xl rounded-box z-[100] border border-base-200">
+        <ul v-else-if="searchQuery && hasSearched" class="absolute top-10 right-0 menu bg-base-100 text-base-content w-72 shadow-xl rounded-box z-[100] border border-base-200">
           <li class="disabled"><span class="py-4 text-center">No results found</span></li>
         </ul>
       </div>
