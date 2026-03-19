@@ -71,7 +71,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { fetchLines } from '../services/api'
 import { getFontConfig } from '../services/fonts'
@@ -96,7 +96,8 @@ const toggleBookmark = () => {
   const id = parseInt(route.params.id)
   let bookmarks = []
   try {
-    bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]')
+    const raw = JSON.parse(localStorage.getItem('bookmarks') || '[]')
+    bookmarks = Array.isArray(raw) ? raw.map(v => parseInt(v)).filter(v => !isNaN(v)) : []
   } catch (e) {}
 
   if (isBookmarked.value) {
@@ -143,11 +144,14 @@ const getDescriptionText = (row) => {
   return text ? text.trim() : '';
 }
 
-onMounted(async () => {
+const fetchData = async () => {
   const id = parseInt(route.params.id);
+  loading.value = true;
+  title.value = route.query.title || '';
 
   try {
-    const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]')
+    const raw = JSON.parse(localStorage.getItem('bookmarks') || '[]')
+    const bookmarks = Array.isArray(raw) ? raw.map(v => parseInt(v)).filter(v => !isNaN(v)) : []
     isBookmarked.value = bookmarks.includes(id)
   } catch (e) {}
 
@@ -170,6 +174,16 @@ onMounted(async () => {
     console.error('Error fetching lines:', error);
   } finally {
     loading.value = false;
+  }
+}
+
+onMounted(() => {
+  fetchData();
+})
+
+watch(() => route.params.id, () => {
+  if (route.name === 'LinesView' && route.params.id) {
+    fetchData();
   }
 })
 </script>

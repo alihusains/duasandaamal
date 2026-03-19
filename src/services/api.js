@@ -35,6 +35,9 @@ let cachedSearchIndex = null;
 export async function fetchBookmarkItems(ids) {
   if (!ids || ids.length === 0) return [];
 
+  // Ensure all IDs are integers for proper matching
+  const numericIds = ids.map(id => parseInt(id, 10));
+
   if (!cachedSearchIndex) {
     const response = await fetch(`${API_BASE}/search_index.json`);
     if (!response.ok) throw new Error('Failed to fetch search index');
@@ -43,7 +46,7 @@ export async function fetchBookmarkItems(ids) {
 
   // Find the items matching the bookmarked IDs
   return cachedSearchIndex
-    .filter(item => ids.includes(item.id))
+    .filter(item => numericIds.includes(item.id))
     .map(item => ({
       Id: item.id,
       EnglishIndexName: item.title_en,

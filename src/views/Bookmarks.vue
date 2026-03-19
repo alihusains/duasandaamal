@@ -49,7 +49,8 @@ const loadBookmarks = async () => {
   const saved = localStorage.getItem('bookmarks')
   if (saved) {
     try {
-      bookmarks.value = JSON.parse(saved)
+      const parsed = JSON.parse(saved)
+      bookmarks.value = Array.isArray(parsed) ? parsed.map(v => parseInt(v, 10)).filter(v => !isNaN(v)) : []
       if (bookmarks.value.length > 0) {
         // Query the static API to get the names for these subindex IDs
         bookmarkedItems.value = await fetchBookmarkItems(bookmarks.value)

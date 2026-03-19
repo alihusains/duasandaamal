@@ -6,8 +6,9 @@
       </button>
     </div>
     <div class="flex-1">
-      <router-link to="/categories" class="btn btn-ghost normal-case text-xl font-bold p-0 ml-2">
+      <router-link to="/categories" class="btn btn-ghost normal-case text-xl font-bold p-0 ml-2 gap-2">
         <img :src="logoUrl" alt="Duas And Aamal" class="h-10 w-auto" />
+        <span class="hidden sm:inline">Duas and Aamal App</span>
       </router-link>
     </div>
     <div class="flex-none">
