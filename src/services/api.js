@@ -56,6 +56,24 @@ export async function fetchBookmarkItems(ids) {
     }));
 }
 
+export async function fetchItemById(id) {
+  if (!cachedSearchIndex) {
+    const response = await fetch(`${API_BASE}/search_index.json`);
+    if (!response.ok) throw new Error('Failed to fetch search index');
+    cachedSearchIndex = await response.json();
+  }
+  const item = cachedSearchIndex.find(i => i.id === parseInt(id, 10));
+  if (!item) return null;
+  return {
+    Id: item.id,
+    EnglishTitle: item.title_en,
+    UrduTitle: item.title_ur,
+    RUrduTitle: item.title_ru,
+    GujaratiTitle: item.title_gu,
+    type: item.type
+  };
+}
+
 export async function searchGlobal(term, lang) {
   if (!term || term.trim() === '') return [];
   term = term.toLowerCase();
@@ -85,6 +103,7 @@ export async function searchGlobal(term, lang) {
   // Limit to 50 results to keep the UI snappy
   return results.slice(0, 50).map(item => ({
     SubindexId: item.id,
+    type: item.type || 'lines',
     EnglishTitle: item.title_en,
     UrduTitle: item.title_ur,
     RUrduTitle: item.title_ru,

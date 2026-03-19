@@ -24,6 +24,7 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { fetchCategories } from '../services/api'
+import { setBreadcrumbs } from '../store'
 
 const router = useRouter()
 const categories = ref([])
@@ -43,6 +44,7 @@ const goToSubindex = (id) => {
 }
 
 onMounted(async () => {
+  setBreadcrumbs([{ title: 'Home', path: '/categories' }])
   try {
     const results = await fetchCategories();
     categories.value = results;

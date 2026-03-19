@@ -32,6 +32,7 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { fetchBookmarkItems } from '../services/api'
+import { setBreadcrumbs } from '../store'
 
 const router = useRouter()
 const bookmarks = ref([])
@@ -46,6 +47,7 @@ const getLanguageName = (sub) => {
 }
 
 const loadBookmarks = async () => {
+  setBreadcrumbs([{ title: 'Home', path: '/categories' }, { title: 'Bookmarks', path: '/bookmarks' }])
   const saved = localStorage.getItem('bookmarks')
   if (saved) {
     try {

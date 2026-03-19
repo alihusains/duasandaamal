@@ -109,13 +109,18 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { currentTheme } from '../theme.js'
+import { setBreadcrumbs } from '../store'
 
 const selectedLanguage = ref(localStorage.getItem('selectedLanguage') || 'en')
 const arabicFont = ref(localStorage.getItem('arabicFont') || 'Al-Qalam')
 const englishFont = ref(localStorage.getItem('englishFont') || 'RobotoFlex')
 const urduFont = ref(localStorage.getItem('urduFont') || 'NotoNastaliqUrdu')
+
+onMounted(() => {
+  setBreadcrumbs([{ title: 'Home', path: '/categories' }, { title: 'Settings', path: '/settings' }])
+})
 
 const saveSettings = () => {
   localStorage.setItem('selectedLanguage', selectedLanguage.value)

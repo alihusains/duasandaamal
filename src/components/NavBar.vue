@@ -103,7 +103,13 @@ const goToResult = (result) => {
   searchQuery.value = ''
   searchResults.value = []
   hasSearched.value = false
-  router.push({ path: `/lines/${result.SubindexId}`, query: { title: getTranslation(result) } })
+  const title = getTranslation(result)
+
+  if (result.type === 'subindex') {
+    router.push({ path: `/category/${result.SubindexId}`, query: { type: 'subindex', title } })
+  } else {
+    router.push({ path: `/lines/${result.SubindexId}`, query: { title } })
+  }
 }
 
 const goBack = () => {

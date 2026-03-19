@@ -78,8 +78,8 @@ def export_api():
         with open(f"{API_DIR}/lines/{sub_id}.json", "w", encoding="utf-8") as f:
             json.dump(lines, f, ensure_ascii=False)
 
-        # Add to search index if it has lines (it's an actual readable item)
-        if len(lines) > 0:
+        # Add to search index if it has lines OR if it has children (so users can search for categories)
+        if len(lines) > 0 or item['HasChildren']:
             # Combine text for search
             combined_arabic = []
             combined_eng = []
@@ -100,6 +100,7 @@ def export_api():
 
             search_item = {
                 "id": sub_id,
+                "type": "subindex" if item['HasChildren'] else "lines",
                 "cat_id": item['CategoryId'],
                 "title_en": item.get('EnglishIndexName', ''),
                 "title_ur": item.get('UrduIndexName', ''),

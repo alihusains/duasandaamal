@@ -73,8 +73,9 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { fetchLines } from '../services/api'
+import { fetchLines, fetchItemById } from '../services/api'
 import { getFontConfig } from '../services/fonts'
+import { setBreadcrumbs } from '../store'
 
 const router = useRouter()
 const route = useRoute()
@@ -87,6 +88,33 @@ const isRtl = selectedLanguage === 'ur'
 const fontConfig = getFontConfig(selectedLanguage)
 
 const isBookmarked = ref(false)
+
+const getLanguageTitle = (item) => {
+  if (selectedLanguage === 'ur') return item.UrduTitle || item.EnglishTitle;
+  if (selectedLanguage === 'ro') return item.RUrduTitle || item.EnglishTitle;
+  if (selectedLanguage === 'gu') return item.GujaratiTitle || item.EnglishTitle;
+  return item.EnglishTitle;
+}
+
+const updateBreadcrumbs = async (pageTitle) => {
+  const crumbs = [
+    { title: 'Home', path: '/categories' }
+  ]
+
+  let displayTitle = pageTitle;
+  if (!displayTitle) {
+    const item = await fetchItemById(route.params.id);
+    if (item) {
+      displayTitle = getLanguageTitle(item);
+      title.value = displayTitle;
+    }
+  }
+
+  if (displayTitle) {
+    crumbs.push({ title: displayTitle, path: route.fullPath })
+  }
+  setBreadcrumbs(crumbs)
+}
 
 const openPresenter = () => {
   router.push({ path: `/presenter/${route.params.id}`, query: { title: title.value } })
@@ -148,6 +176,7 @@ const fetchData = async () => {
   const id = parseInt(route.params.id);
   loading.value = true;
   title.value = route.query.title || '';
+  updateBreadcrumbs(title.value || 'Details')
 
   try {
     const raw = JSON.parse(localStorage.getItem('bookmarks') || '[]')
@@ -169,6 +198,7 @@ const fetchData = async () => {
       if (selectedLanguage === 'ur') title.value = results[0].UrduTitle || results[0].EnglishTitle;
       else if (selectedLanguage === 'ro') title.value = results[0].RUrduTitle || results[0].EnglishTitle;
       else title.value = results[0].EnglishTitle;
+      updateBreadcrumbs(title.value)
     }
   } catch (error) {
     console.error('Error fetching lines:', error);

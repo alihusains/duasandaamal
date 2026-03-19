@@ -27,7 +27,8 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { fetchCategoryItems, fetchSubindexItems } from '../services/api'
+import { fetchCategoryItems, fetchSubindexItems, fetchItemById } from '../services/api'
+import { setBreadcrumbs } from '../store'
 
 const router = useRouter()
 const route = useRoute()
@@ -43,10 +44,39 @@ const getLanguageName = (sub) => {
   return sub.EnglishIndexName;
 }
 
+const getLanguageTitle = (item) => {
+  if (selectedLanguage === 'ur') return item.UrduTitle || item.EnglishTitle;
+  if (selectedLanguage === 'ro') return item.RUrduTitle || item.EnglishTitle;
+  if (selectedLanguage === 'gu') return item.GujaratiTitle || item.EnglishTitle;
+  return item.EnglishTitle;
+}
+
+const updateBreadcrumbs = async (title) => {
+  const crumbs = [
+    { title: 'Home', path: '/categories' }
+  ]
+
+  let displayTitle = title;
+  if (!displayTitle) {
+    const item = await fetchItemById(route.params.id);
+    if (item) {
+      displayTitle = getLanguageTitle(item);
+    }
+  }
+
+  if (displayTitle) {
+    crumbs.push({ title: displayTitle, path: route.fullPath })
+  }
+  setBreadcrumbs(crumbs)
+}
+
 const fetchSubcategories = async () => {
   loading.value = true;
   const id = route.params.id;
   const isSubcategory = route.query.type === 'subindex';
+  const titleFromQuery = route.query.title;
+
+  updateBreadcrumbs(titleFromQuery)
 
   try {
     if (isSubcategory) {
