@@ -1,6 +1,6 @@
 import { ref, watch } from 'vue'
 
-export const currentTheme = ref(localStorage.getItem('appTheme') || 'divinepearls')
+export const currentTheme = ref(localStorage.getItem('appTheme') || 'duasandaamal')
 
 export function initTheme() {
   document.documentElement.setAttribute('data-theme', currentTheme.value)
