@@ -2,6 +2,33 @@
   <div class="container mx-auto p-4 max-w-md mt-10 pb-24">
     <h1 class="text-3xl font-bold mb-6 text-center">Settings</h1>
 
+    <!-- Theme Settings -->
+    <div class="card bg-base-100 shadow-xl border border-base-200 mb-6">
+      <div class="card-body">
+        <h2 class="card-title text-xl mb-4">App Theme</h2>
+
+        <div class="form-control">
+          <label class="label cursor-pointer justify-start gap-4">
+            <input type="radio" name="theme" value="light" v-model="currentTheme" class="radio radio-primary" />
+            <span class="label-text text-lg">Light</span>
+          </label>
+        </div>
+        <div class="form-control">
+          <label class="label cursor-pointer justify-start gap-4">
+            <input type="radio" name="theme" value="dark" v-model="currentTheme" class="radio radio-primary" />
+            <span class="label-text text-lg">Dark</span>
+          </label>
+        </div>
+        <div class="form-control">
+          <label class="label cursor-pointer justify-start gap-4">
+            <input type="radio" name="theme" value="duasandaamal" v-model="currentTheme" class="radio radio-primary" />
+            <span class="label-text text-lg">Duas and Aamal</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- App Language -->
     <div class="card bg-base-100 shadow-xl border border-base-200 mb-6">
       <div class="card-body">
         <h2 class="card-title text-xl mb-4">App Language</h2>
@@ -77,6 +104,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { currentTheme } from '../theme.js'
 
 const selectedLanguage = ref(localStorage.getItem('selectedLanguage') || 'en')
 const arabicFont = ref(localStorage.getItem('arabicFont') || 'Al-Qalam')

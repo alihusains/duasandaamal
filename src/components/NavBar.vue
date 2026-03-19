@@ -6,7 +6,9 @@
       </button>
     </div>
     <div class="flex-1">
-      <router-link to="/categories" class="btn btn-ghost normal-case text-xl font-bold">Duas And Aamal App</router-link>
+      <router-link to="/categories" class="btn btn-ghost normal-case text-xl font-bold p-0 ml-2">
+        <img :src="logoUrl" alt="Duas And Aamal" class="h-10 w-auto" />
+      </router-link>
     </div>
     <div class="flex-none">
       <div class="form-control relative">
@@ -49,6 +51,7 @@
 import { ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { searchGlobal } from '../services/api'
+import logoUrl from '../assets/logo.png'
 
 const router = useRouter()
 const route = useRoute()
