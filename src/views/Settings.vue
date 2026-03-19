@@ -25,6 +25,12 @@
             <span class="label-text text-lg">Duas and Aamal</span>
           </label>
         </div>
+        <div class="form-control">
+          <label class="label cursor-pointer justify-start gap-4">
+            <input type="radio" name="theme" value="divinepearls" v-model="currentTheme" class="radio radio-primary" />
+            <span class="label-text text-lg">Divine Pearls</span>
+          </label>
+        </div>
       </div>
     </div>
 

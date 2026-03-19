@@ -2,26 +2,40 @@
 @plugin "daisyui";
 
 [data-theme="duasandaamal"] {
-  --color-base-100: #2b355a;
-  --color-base-200: #222b4a;
-  --color-base-300: #1a213b;
-  --color-base-content: #ffffff;
-
-  --color-primary: #d97022;
-  --color-primary-content: #ffffff;
-
-  --color-secondary: #4a5c9a;
-  --color-secondary-content: #ffffff;
-
-  --color-accent: #f5d680;
-  --color-accent-content: #000000;
-
-  --color-neutral: #1a213b;
-  --color-neutral-content: #ffffff;
-
+  --color-base-100: #FAF2E1;
+  --color-base-200: #F3E6CE;
+  --color-base-300: #E6D2B0;
+  --color-base-content: #212C54;
+  --color-primary: #212C54;
+  --color-primary-content: #FFFFFF;
+  --color-secondary: #CBA052;
+  --color-secondary-content: #212C54;
+  --color-accent: #D97022;
+  --color-accent-content: #FFFFFF;
+  --color-neutral: #1A1D2A;
+  --color-neutral-content: #FFFFFF;
   --color-info: #3abff8;
   --color-success: #36d399;
   --color-warning: #fbbd23;
+  --color-error: #f87272;
+}
+
+[data-theme="divinepearls"] {
+  --color-base-100: #f7f2e7;
+  --color-base-200: #efe6d3;
+  --color-base-300: #d7cbb5;
+  --color-base-content: #2f241f;
+  --color-primary: #47322B;
+  --color-primary-content: #f7f2e7;
+  --color-secondary: #2bb673;
+  --color-secondary-content: #ffffff;
+  --color-accent: #c8a951;
+  --color-accent-content: #47322B;
+  --color-neutral: #2f241f;
+  --color-neutral-content: #f7f2e7;
+  --color-info: #3abff8;
+  --color-success: #2bb673;
+  --color-warning: #c8a951;
   --color-error: #f87272;
 }
 

@@ -66,7 +66,7 @@ const handleSubcategoryClick = (sub) => {
   if (sub.HasChildren) {
     router.push({ path: `/category/${sub.Id}`, query: { type: 'subindex' } });
   } else {
-    router.push(`/lines/${sub.Id}`);
+    router.push({ path: `/lines/${sub.Id}`, query: { title: getLanguageName(sub) } });
   }
 }
 

@@ -15,7 +15,7 @@
         v-for="sub in bookmarkedItems"
         :key="sub.Id"
         class="card bg-base-100 shadow border border-base-200 cursor-pointer hover:shadow-md transition-shadow"
-        @click="goToBookmark(sub.Id)"
+        @click="goToBookmark(sub)"
       >
         <div class="card-body p-6 flex flex-row justify-between items-center">
           <h2 class="card-title text-xl font-normal">{{ getLanguageName(sub) }}</h2>
@@ -68,8 +68,8 @@ onMounted(() => {
   loadBookmarks()
 })
 
-const goToBookmark = (id) => {
-  router.push(`/lines/${id}`)
+const goToBookmark = (sub) => {
+  router.push({ path: `/lines/${sub.Id}`, query: { title: getLanguageName(sub) } })
 }
 
 const removeBookmark = (id) => {

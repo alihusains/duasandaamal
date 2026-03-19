@@ -80,7 +80,7 @@ const router = useRouter()
 const route = useRoute()
 
 const lines = ref([])
-const title = ref('')
+const title = ref(route.query.title || '')
 const loading = ref(true)
 const selectedLanguage = localStorage.getItem('selectedLanguage') || 'en'
 const isRtl = selectedLanguage === 'ur'

@@ -23,7 +23,7 @@
         <!-- Search Results Dropdown -->
         <ul v-if="searchResults.length > 0" class="absolute top-10 right-0 menu bg-base-100 text-base-content w-72 shadow-xl rounded-box z-[100] max-h-96 flex-nowrap overflow-y-auto border border-base-200">
           <li v-for="(result, index) in searchResults" :key="index">
-            <a @click="goToResult(result.SubindexId)">
+            <a @click="goToResult(result)">
               <div class="flex flex-col gap-1 w-full overflow-hidden">
                 <span class="text-sm truncate text-base-content/80 w-full block">{{ getTranslation(result) }}</span>
               </div>
@@ -98,11 +98,11 @@ const getTranslation = (result) => {
   return result.EnglishTitle
 }
 
-const goToResult = (subindexId) => {
+const goToResult = (result) => {
   searchQuery.value = ''
   searchResults.value = []
   hasSearched.value = false
-  router.push(`/lines/${subindexId}`)
+  router.push({ path: `/lines/${result.SubindexId}`, query: { title: getTranslation(result) } })
 }
 
 const goBack = () => {
