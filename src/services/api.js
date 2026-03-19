@@ -1,7 +1,7 @@
 // Static API Service
 // Replaces the heavy SQLite WebAssembly engine with instant JSON fetching
 
-const API_BASE = '/api';
+const API_BASE = import.meta.env.BASE_URL + 'api';
 
 export async function fetchCategories() {
   const response = await fetch(`${API_BASE}/categories.json`);
