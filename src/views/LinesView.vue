@@ -89,7 +89,7 @@ const fontConfig = getFontConfig(selectedLanguage)
 const isBookmarked = ref(false)
 
 const openPresenter = () => {
-  router.push(`/presenter/${route.params.id}`)
+  router.push({ path: `/presenter/${route.params.id}`, query: { title: title.value } })
 }
 
 const toggleBookmark = () => {
@@ -161,7 +161,7 @@ onMounted(async () => {
       description: getDescriptionText(row)
     })).filter(line => line.arabic || line.translation || line.transliteration || line.description);
 
-    if (results.length > 0) {
+    if (results.length > 0 && !route.query.title) {
       if (selectedLanguage === 'ur') title.value = results[0].UrduTitle || results[0].EnglishTitle;
       else if (selectedLanguage === 'ro') title.value = results[0].RUrduTitle || results[0].EnglishTitle;
       else title.value = results[0].EnglishTitle;

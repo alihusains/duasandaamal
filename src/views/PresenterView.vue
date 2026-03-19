@@ -11,6 +11,11 @@
         <button @click="exitPresenter" class="back-btn" title="Back to input (Esc)">← Back</button>
         <span class="slide-counter">{{ currentIndex + 1 }} / {{ lines.length }}</span>
       </div>
+
+      <div class="top-center hidden md:block">
+        <span class="font-bold text-lg" style="color: var(--gold);">{{ route.query.title }}</span>
+      </div>
+
       <div class="top-right flex gap-3">
         <!-- Fullscreen Button -->
         <button @click="toggleFullscreen" class="icon-btn" :title="isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'">
