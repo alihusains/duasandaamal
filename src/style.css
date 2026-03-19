@@ -1,0 +1,23 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@font-face { font-family: 'Al-Qalam'; src: url('/fonts/Al-Qalam.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'ShiaEssentials'; src: url('/fonts/shiaessentials.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'RobotoFlex'; src: url('/fonts/RobotoFlex.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'NotoSans'; src: url('/fonts/notosans.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'NotoNastaliqUrdu'; src: url('/fonts/NotoNastaliqUrdu.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'DnaQuranTransliteration'; src: url('/fonts/dnaqurantransliteration.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'DnaGujarati'; src: url('/fonts/dnagujarati.ttf') format('truetype'); font-display: swap; }
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
