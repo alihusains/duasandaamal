@@ -585,7 +585,6 @@ onUnmounted(() => {
   color: var(--cream-dim);
   max-width: 90%;
   margin: 0 auto;
-  font-style: italic;
   opacity: 0.8;
 }
 
@@ -611,7 +610,6 @@ onUnmounted(() => {
   color: var(--cream-dim);
   max-width: 85%;
   margin: 0 auto;
-  font-style: italic;
 }
 
 .loading-spinner {

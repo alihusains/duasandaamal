@@ -54,7 +54,7 @@
               <p v-if="line.translation" class="text-xl sm:text-2xl font-medium mb-4 font-translation text-primary mt-2" :style="{ fontFamily: fontConfig.translation }" :dir="isRtl ? 'rtl' : 'ltr'">
                 {{ line.translation }}
               </p>
-              <p v-if="line.transliteration" class="text-lg text-base-content/70 font-transliteration italic" :style="{ fontFamily: fontConfig.transliteration }">
+              <p v-if="line.transliteration" class="text-lg text-base-content/70 font-transliteration" :style="{ fontFamily: fontConfig.transliteration }">
                 {{ line.transliteration }}
               </p>
             </div>
